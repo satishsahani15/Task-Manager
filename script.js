@@ -1,4 +1,3 @@
-// script.js
 const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
@@ -8,7 +7,7 @@ const pendingBtn = document.getElementById('pendingBtn');
 const sortBtn = document.getElementById('sortBtn');
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-let filteredTasks = [...tasks]; // Initialize filteredTasks with all tasks
+let filteredTasks = [...tasks];
 
 function renderTasks() {
     taskList.innerHTML = '';
@@ -37,7 +36,7 @@ function addTask() {
             completed: false
         };
         tasks.push(newTask);
-        filteredTasks.push(newTask); // Also add to filteredTasks
+        filteredTasks.push(newTask); 
         saveTasks();
         renderTasks();
     }
@@ -47,14 +46,14 @@ function addTask() {
 function toggleTaskCompletion(id) {
     const task = tasks.find(task => task.id === id);
     task.completed = !task.completed;
-    filteredTasks = filterTasks(currentFilter); // Re-filter tasks
+    filteredTasks = filterTasks(currentFilter); 
     saveTasks();
     renderTasks();
 }
 
 function deleteTask(id) {
     tasks = tasks.filter(task => task.id !== id);
-    filteredTasks = filteredTasks.filter(task => task.id !== id); // Also remove from filteredTasks
+    filteredTasks = filteredTasks.filter(task => task.id !== id);
     saveTasks();
     renderTasks();
 }
@@ -63,22 +62,22 @@ function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-let currentFilter = 'all'; // Track the current filter
+let currentFilter = 'all';
 
 function filterTasks(status) {
-    currentFilter = status; // Update current filter
+    currentFilter = status; 
     if (status === 'completed') {
         return tasks.filter(task => task.completed);
     }
     if (status === 'pending') {
         return tasks.filter(task => !task.completed);
     }
-    return tasks; // All
+    return tasks;
 }
 
 function sortTasks() {
     tasks.sort((a, b) => b.id - a.id);
-    filteredTasks.sort((a, b) => b.id - a.id); // Sort filteredTasks as well
+    filteredTasks.sort((a, b) => b.id - a.id);
     saveTasks();
     renderTasks();
 }
